@@ -1,5 +1,10 @@
 package ru.redenergy.report.web
 
-fun main(args: Array<String>){
-    QReportApplication().start(args)
+object Starter {
+    //Instance of application
+    val app: QReportApplication = QReportApplication()
+}
+
+fun main(args: Array<String>) {
+    Starter.app.start(args)
 }
