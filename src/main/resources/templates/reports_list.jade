@@ -1,0 +1,15 @@
+extends header
+
+block content
+	table
+		thead
+			tr
+				th Sender
+				th Text
+		tbody
+			for ticket in tickets
+				tr
+					th
+						#{ticket.sender}
+					th
+						a(href='/admin/reports/' + ticket.uid) #{ticket.messages[0].text}
