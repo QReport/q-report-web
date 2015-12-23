@@ -9,6 +9,7 @@ import ru.redenergy.report.web.entities.Ticket
 import ru.redenergy.report.web.orm.JsonPersister
 import ru.redenergy.report.web.routes.ReportsListRoute
 import ru.redenergy.report.web.routes.ViewReportRoute
+import ru.redenergy.report.web.routes.back.AddMessageRoute
 import spark.Spark
 import spark.template.jade.JadeTemplateEngine
 import spark.template.jade.loader.SparkClasspathTemplateLoader
@@ -36,6 +37,8 @@ class QReportApplication {
     fun registerRoutes(){
         Spark.get("/admin/reports", ReportsListRoute(this), jadeEngine)
         Spark.get("/admin/reports/:id", ViewReportRoute(this), jadeEngine)
+
+        Spark.post("admin/reports/:id/addMessage", AddMessageRoute(this))
     }
 
 }
