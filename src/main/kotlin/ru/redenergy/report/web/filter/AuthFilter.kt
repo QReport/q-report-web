@@ -2,6 +2,7 @@ package ru.redenergy.report.web.filter
 
 import ru.redenergy.report.web.QReportApplication
 import ru.redenergy.report.web.entities.User
+import ru.redenergy.report.web.exception.NotAuthorizedException
 import spark.Filter
 import spark.Request
 import spark.Response
@@ -19,7 +20,7 @@ class AuthFilter(val app: QReportApplication): Filter {
         }
 
         if(!success)
-            response.redirect("/auth")
+            throw NotAuthorizedException("${request.ip()} tried to access ${request.url()} while not being authorized")
     }
 
 }
