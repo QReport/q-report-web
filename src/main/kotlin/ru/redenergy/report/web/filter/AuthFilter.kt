@@ -20,7 +20,7 @@ class AuthFilter(val app: QReportApplication): Filter {
         }
 
         if(!success)
-            throw NotAuthorizedException("${request.ip()} tried to access ${request.url()} while not being authorized")
+            throw NotAuthorizedException("${request.host()} tried to access ${request.url()} while not being authorized")
     }
 
 }

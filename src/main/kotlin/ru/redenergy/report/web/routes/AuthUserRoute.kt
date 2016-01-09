@@ -1,4 +1,4 @@
-package ru.redenergy.report.web.routes.back
+package ru.redenergy.report.web.routes
 
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.lang3.RandomStringUtils
@@ -21,7 +21,7 @@ class AuthUserRoute(val app: QReportApplication): Route {
                 .eq("username", login)
                 .and()
                 .eq("passwordHash", hashedPassword).queryForFirst()
-                ?: return StatusResponse(false, null)
+                ?: return StatusResponse(false, null);
 
         val accessToken = DigestUtils.md5Hex(RandomStringUtils.random(30))
 
@@ -30,7 +30,7 @@ class AuthUserRoute(val app: QReportApplication): Route {
 
         response.cookie("access_token", accessToken)
 
-        return StatusResponse(true, null)
+        return StatusResponse(true, mapOf(Pair("access_token", accessToken)))
 
     }
 

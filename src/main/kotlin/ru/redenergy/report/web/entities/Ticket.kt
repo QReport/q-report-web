@@ -17,7 +17,7 @@ import java.util.*
  * @param messages - messages in ticket Note: in database this field will be persisted as json string, check out [ru.redenergy.report.server.orm.JsonPersister]
  */
 @DatabaseTable(tableName = "tickets")
-data class Ticket(@db(id = true) var uid: UUID = UUID.randomUUID(), @db var status: TicketStatus, @db var sender: String, @db var reason: TicketReason, @db(persisterClass = JsonPersister::class) var messages: MutableList<TicketMessage>) {
+data class Ticket(@db(id = true) var uid: UUID = UUID.randomUUID(), @db var status: TicketStatus, @db var sender: String, @db var reason: TicketReason, @db(persisterClass = JsonPersister::class, width = 16777216) var messages: MutableList<TicketMessage>) {
 
     /**
      * A short representation of uuid <br>

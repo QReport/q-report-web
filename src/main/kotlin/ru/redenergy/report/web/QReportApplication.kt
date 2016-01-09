@@ -14,11 +14,10 @@ import ru.redenergy.report.web.exception.NotAuthorizedException
 import ru.redenergy.report.web.filter.AuthFilter
 import ru.redenergy.report.web.orm.JsonPersister
 import ru.redenergy.report.web.response.transformer.JsonTransformer
-import ru.redenergy.report.web.routes.AuthRoute
+import ru.redenergy.report.web.routes.AddMessageRoute
+import ru.redenergy.report.web.routes.AuthUserRoute
+import ru.redenergy.report.web.routes.ReportViewRoute
 import ru.redenergy.report.web.routes.ReportsListRoute
-import ru.redenergy.report.web.routes.ViewReportRoute
-import ru.redenergy.report.web.routes.back.AddMessageRoute
-import ru.redenergy.report.web.routes.back.AuthUserRoute
 import spark.Spark
 import spark.template.jade.JadeTemplateEngine
 import spark.template.jade.loader.SparkClasspathTemplateLoader
@@ -48,18 +47,21 @@ class QReportApplication(val config: IAppConfig) {
     }
 
     fun registerRoutes(){
+        Spark.staticFileLocation("/public")
+
         Spark.before("/admin/*", AuthFilter(this))
 
-        Spark.get("/auth", AuthRoute(this), jadeEngine)
-
-        Spark.get("/admin/reports", ReportsListRoute(this), jadeEngine)
-        Spark.get("/admin/reports/:id", ViewReportRoute(this), jadeEngine)
+        Spark.get("/admin/reports", ReportsListRoute(this), JsonTransformer())
+        Spark.get("/admin/reports/:id", ReportViewRoute(this), JsonTransformer())
 
         Spark.post("/auth", AuthUserRoute(this), JsonTransformer())
 
         Spark.post("admin/reports/:id/addMessage", AddMessageRoute(this), JsonTransformer())
 
-        Spark.exception(NotAuthorizedException::class.java, {e, req, res -> res.redirect("/auth")})
+        Spark.exception(NotAuthorizedException::class.java, {e, req, res ->
+            println(e.message)
+            res.status(401)
+        })
     }
 
 }

@@ -1,0 +1,7 @@
+<div ng-controller="dashboard" ng-init="loadTickets()">
+    <ul>
+        <li ng-repeat="ticket in tickets">
+            <a ng-href="index.html#/ticket/{{ticket.uid}}">{{ ticket.sender}}: {{ ticket.messages[0].text }}</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,9 @@
+<div ng-controller="ticket" ng-init="loadTicketData()">
+    <ul>
+        <li ng-repeat="msg in ticket.messages">
+            {{msg.text}}
+        </li>
+    </ul>
+    <input ng-model="newMessage"> <br>
+    <button ng-click="addMessage()">Add</button>
+</div>

@@ -1,4 +1,4 @@
-package ru.redenergy.report.web.routes.back
+package ru.redenergy.report.web.routes
 
 import ru.redenergy.report.web.QReportApplication
 import ru.redenergy.report.web.entities.TicketMessage
