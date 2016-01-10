@@ -26,13 +26,14 @@ jar {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.sparkjava:spark-core:2.3'
-    compile 'com.sparkjava:spark-template-jade:2.3'
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'org.xerial:sqlite-jdbc:3.7.2'
     compile 'mysql:mysql-connector-java:5.1.37'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-jdbc:4.48'
     compile 'com.google.code.gson:gson:2.5'
+    compile 'commons-codec:commons-codec:1.10'
+    compile 'org.apache.commons:commons-lang3:3.2.1'
     testCompile 'junit:junit:4.12'
 }
 

@@ -1,12 +1,10 @@
 package ru.redenergy.report.web
 
-import com.google.gson.Gson
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.field.DataPersisterManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
-import de.neuland.jade4j.JadeConfiguration
 import ru.redenergy.report.web.config.IAppConfig
 import ru.redenergy.report.web.entities.Ticket
 import ru.redenergy.report.web.entities.User
@@ -16,8 +14,6 @@ import ru.redenergy.report.web.orm.JsonPersister
 import ru.redenergy.report.web.response.transformer.JsonTransformer
 import ru.redenergy.report.web.routes.*
 import spark.Spark
-import spark.template.jade.JadeTemplateEngine
-import spark.template.jade.loader.SparkClasspathTemplateLoader
 import java.util.*
 
 class QReportApplication(val config: IAppConfig) {
@@ -32,10 +28,6 @@ class QReportApplication(val config: IAppConfig) {
 
     var userDao = DaoManager.createDao<Dao<User, UUID>, User>(connectionSource, User::class.java)
 
-    val jadeEngine = JadeTemplateEngine(JadeConfiguration().apply {
-        templateLoader = SparkClasspathTemplateLoader("templates")
-        isPrettyPrint = true
-    })
 
     fun start(args: Array<String>) {
         registerRoutes()
