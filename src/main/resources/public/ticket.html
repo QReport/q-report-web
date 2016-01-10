@@ -4,6 +4,7 @@
             {{msg.text}}
         </li>
     </ul>
+    <select ng-model="selectedStatus" ng-options="status as status for status in availableStatuses" ng-change="updateStatus()"></select>
     <input ng-model="newMessage"> <br>
     <button ng-click="addMessage()">Add</button>
 </div>

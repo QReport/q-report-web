@@ -14,10 +14,7 @@ import ru.redenergy.report.web.exception.NotAuthorizedException
 import ru.redenergy.report.web.filter.AuthFilter
 import ru.redenergy.report.web.orm.JsonPersister
 import ru.redenergy.report.web.response.transformer.JsonTransformer
-import ru.redenergy.report.web.routes.AddMessageRoute
-import ru.redenergy.report.web.routes.AuthUserRoute
-import ru.redenergy.report.web.routes.ReportViewRoute
-import ru.redenergy.report.web.routes.ReportsListRoute
+import ru.redenergy.report.web.routes.*
 import spark.Spark
 import spark.template.jade.JadeTemplateEngine
 import spark.template.jade.loader.SparkClasspathTemplateLoader
@@ -56,7 +53,8 @@ class QReportApplication(val config: IAppConfig) {
 
         Spark.post("/auth", AuthUserRoute(this), JsonTransformer())
 
-        Spark.post("admin/reports/:id/addMessage", AddMessageRoute(this), JsonTransformer())
+        Spark.post("/admin/reports/:id/addMessage", AddMessageRoute(this), JsonTransformer())
+        Spark.post("/admin/reports/:id/updateStatus", UpdateStatusRoute(this), JsonTransformer())
 
         Spark.exception(NotAuthorizedException::class.java, {e, req, res ->
             println(e.message)
