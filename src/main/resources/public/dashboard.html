@@ -9,14 +9,20 @@
                 <th>Text</th>
                 <th>Reason</th>
                 <th>Status</th>
+                <th>Created</th>
+                <th>Last update</th>
             </thead>
             <tbody>
                 <tr ng-repeat="ticket in tickets">
                     <td class="col-md-1"><a ng-href="/#/ticket/{{ticket.uid}}">{{ ticket.uid.substring(0, 8) }}</a></td>
-                    <td class="col-md-2">{{ ticket.sender }}</td>
-                    <td class="col-md-5">{{ ticket.messages[0].text }}</td>
-                    <td class="col-md-2">{{ ticket.reason }}</td>
-                    <td class="col-md-2">{{ ticket.status }}</td>
+                    <td class="col-md-1">{{ ticket.sender }}</td>
+                    <td class="col-md-5">{{ shortenText(ticket.messages[0].text, 80, true) }}</td>
+                    <td class="col-md-1">{{ ticket.reason }}</td>
+                    <td class="col-md-1">{{ ticket.status }}</td>
+                    <td class="col-md-1" title="{{ formatTimestamp(ticket.messages[0].timestamp, 'DD.MM HH:mm:ss') }}">
+                        {{ formatTimestampRelative(ticket.messages[0].timestamp) }}</td>
+                    <td class="col-md-1" title="{{ formatTimestamp(ticket.messages.slice(-1)[0].timestamp, 'DD.MM HH:mm:ss') }}">
+                        {{ formatTimestampRelative(ticket.messages.slice(-1)[0].timestamp) }}</td>
                 </tr>
             </tbody>
         </table>
