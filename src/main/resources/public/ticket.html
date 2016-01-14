@@ -1,10 +1,41 @@
-<div ng-controller="ticket" ng-init="loadTicketData()">
-    <ul>
-        <li ng-repeat="msg in ticket.messages">
-            {{msg.text}}
-        </li>
-    </ul>
-    <select ng-model="selectedStatus" ng-options="status as status for status in availableStatuses" ng-change="updateStatus()"></select>
-    <input ng-model="newMessage"> <br>
-    <button ng-click="addMessage()">Add</button>
+<div class="container" ng-controller="ticket" ng-init="loadTicketData()">
+    <div ng-include="'navigation.html'"></div>
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h1 class="panel-title pull-left" style="font-size: 25px;"> Message history </h1>
+            <div class="pull-right">
+                <span>Status</span>
+                <select ng-model="selectedStatus" ng-options="status for status in availableStatuses" ng-change="updateStatus()" class="form-control"></select>
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul class="media-list">
+                <li ng-repeat="message in ticket.messages" class="media">
+                    <div class="media-body">
+                        <small class="text-muted">{{ message.sender }} | 23rd June at 5:00</small>
+                        <div class="media">
+                            {{ message.text }}
+                            <hr />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Enter message" />
+                <span class="input-group-btn">
+                    <button class="btn btn-info">Send</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!--<ul>-->
+        <!--<li ng-repeat="msg in ticket.messages">-->
+            <!--{{msg.text}}-->
+        <!--</li>-->
+    <!--</ul>-->
+    <!--<select ng-model="selectedStatus" ng-options="status as status for status in availableStatuses" ng-change="updateStatus()"></select>-->
+    <!--<input ng-model="newMessage"> <br>-->
+    <!--<button ng-click="addMessage()">Add</button>-->
 </div>
