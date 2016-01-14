@@ -1,7 +1,24 @@
-<div ng-controller="dashboard" ng-init="loadTickets()">
-    <ul>
-        <li ng-repeat="ticket in tickets">
-            <a ng-href="index.html#/ticket/{{ticket.uid}}">{{ ticket.sender}}: {{ ticket.messages[0].text }}</a>
-        </li>
-    </ul>
+<div class="container" ng-controller="dashboard" ng-init="loadTickets()">
+    <div ng-include="'navigation.html'"></div>
+    <h2>Tickets</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <th>ID</th>
+                <th>Sender</th>
+                <th>Text</th>
+                <th>Reason</th>
+                <th>Status</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ticket in tickets">
+                    <td class="col-md-1"><a ng-href="/#/ticket/{{ticket.uid}}">{{ ticket.uid.substring(0, 8) }}</a></td>
+                    <td class="col-md-2">{{ ticket.sender }}</td>
+                    <td class="col-md-5">{{ ticket.messages[0].text }}</td>
+                    <td class="col-md-2">{{ ticket.reason }}</td>
+                    <td class="col-md-2">{{ ticket.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
