@@ -1,5 +1,11 @@
 var app = angular.module('qreport', ['ngRoute'])
 
+app.run(function($rootScope){
+    $rootScope.formatTimestampRelative = function(millis){
+        return moment(millis).fromNow()
+    }
+})
+
 app.config(function($routeProvider){
     $routeProvider
     .when("/auth", {
@@ -125,6 +131,7 @@ app.controller('ticket', function($scope, $http, $location, $routeParams, $httpP
         }).then(function successCallback(response){
             if(response.data.ok){
                 $scope.loadTicketData()
+                $scope.newMessage = ''
             }
         }, function errorCallback(response){
             console.log(response)

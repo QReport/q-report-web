@@ -1,41 +1,35 @@
+<!--Template which displays information about given ticket-->
+<!--Fetches data about ticket from backend on load-->
 <div class="container" ng-controller="ticket" ng-init="loadTicketData()">
     <div ng-include="'navigation.html'"></div>
+
+    <!--Title-->
+    <h3 class="form-inline">Created by {{ ticket.messages[0].sender }} {{ formatTimestampRelative(ticket.messages[0].timestamp) }}
+        <!--Select element with available ticket status, one item select it sends ajax request to the backend and updates ticket data after it-->
+        <select ng-model="selectedStatus" ng-options="status for status in availableStatuses" ng-change="updateStatus()" class="form-control"></select>
+        </h3>
+    <hr />
+
+    <!--Message history-->
+        <div class="panel clearfix panel-default" ng-repeat="message in ticket.messages">
+            <div class="panel-heading clearfix">
+                <span class="panel-title pull-left">{{ message.sender }} <span class="text-muted">| {{ formatTimestampRelative(message.timestamp) }} </span></span>
+            </div>
+            <div class="panel-body">
+                {{ message.text }}
+            </div>
+        </div>
+
+    <!--New message field-->
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
-            <h1 class="panel-title pull-left" style="font-size: 25px;"> Message history </h1>
-            <div class="pull-right">
-                <span>Status</span>
-                <select ng-model="selectedStatus" ng-options="status for status in availableStatuses" ng-change="updateStatus()" class="form-control"></select>
-            </div>
+            <span class="panel-title pull-left">New message</span>
         </div>
         <div class="panel-body">
-            <ul class="media-list">
-                <li ng-repeat="message in ticket.messages" class="media">
-                    <div class="media-body">
-                        <small class="text-muted">{{ message.sender }} | 23rd June at 5:00</small>
-                        <div class="media">
-                            {{ message.text }}
-                            <hr />
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="panel-footer">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter message" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info">Send</button>
-                </span>
-            </div>
+            <textarea ng-model="newMessage" class="form-control" style="resize:vertical;" rows="5"></textarea>
+            <br />
+            <button ng-click="addMessage()" class="btn btn-default pull-right">Comment</button>
         </div>
     </div>
-    <!--<ul>-->
-        <!--<li ng-repeat="msg in ticket.messages">-->
-            <!--{{msg.text}}-->
-        <!--</li>-->
-    <!--</ul>-->
-    <!--<select ng-model="selectedStatus" ng-options="status as status for status in availableStatuses" ng-change="updateStatus()"></select>-->
-    <!--<input ng-model="newMessage"> <br>-->
-    <!--<button ng-click="addMessage()">Add</button>-->
+
 </div>
