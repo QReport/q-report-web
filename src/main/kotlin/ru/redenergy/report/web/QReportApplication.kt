@@ -42,6 +42,7 @@ class QReportApplication(val config: IAppConfig) {
 
         Spark.get("/admin/reports", ReportsListRoute(this), JsonTransformer())
         Spark.get("/admin/reports/:id", ReportViewRoute(this), JsonTransformer())
+        Spark.get("/admin/stats", StatsRoute(this), JsonTransformer())
 
         Spark.post("/auth", AuthUserRoute(this), JsonTransformer())
 
