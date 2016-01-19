@@ -27,7 +27,13 @@ app.config(function($routeProvider){
         templateUrl: 'ticket.html'
     })
     .when("/admin", {
-        templateUrl: 'admin.html'
+        templateUrl: 'admin/admin-global.html'
+    })
+    .when("/admin/users", {
+        templateUrl: 'admin/admin-users.html'
+    })
+    .when("/admin/stats", {
+        templateUrl: 'admin/admin-stats.html'
     })
     .otherwise({
         redirectTo: '/auth'
@@ -152,7 +158,10 @@ app.controller('ticket', function($scope, $http, $location, $routeParams, $httpP
 
 })
 
-app.controller('admin', function($scope, $http){
+app.controller('admin-global', function($scope){
+})
+
+app.controller('admin-stats', function($scope, $http){
     $scope.ticketsChartData = []
     $scope.ticketsChartLabels = []
     $scope.ticketsChartOptions = {

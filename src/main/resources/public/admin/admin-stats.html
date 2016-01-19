@@ -1,0 +1,36 @@
+<div class="container" ng-controller="admin-stats" ng-init="loadStatistics()">
+    <div ng-include="'navigation.html'"></div>
+
+    <div class="row">
+
+        <!--Side menu-->
+        <div ng-include="'admin/admin-menu.html'"></div>
+
+
+        <!--Content-->
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Most active users</span>
+                </div>
+                <div class="panel-body">
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="activeUsersData" chart-labels="activeUsersLabels" chart-series="activeUsersSeries">
+                    </canvas>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">Tickets</span>
+                </div>
+                <div class="panel-body">
+                    <canvas id="pie" class="chart chart-pie" chart-legend="true"
+                            chart-data="ticketsChartData" chart-labels="ticketsChartLabels"
+                            chart-options="ticketsChartOptions">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
