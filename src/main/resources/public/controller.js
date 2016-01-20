@@ -161,6 +161,42 @@ app.controller('ticket', function($scope, $http, $location, $routeParams, $httpP
 app.controller('admin-global', function($scope){
 })
 
+app.controller('admin-users', function($scope, $http){
+    $scope.users = []
+
+    $scope.loadUsers = function(){
+        $http({
+            url: 'admin/users',
+            method: 'GET'
+        }).then(function successCallback(response){
+            if(response.status != 404 && response.data.ok){
+                $scope.users = response.data.value
+            }
+        })
+    }
+})
+
+app.controller('new-user-modal', function($scope, $http, $httpParamSerializerJQLike){
+    $scope.login = ''
+    $scope.password = ''
+
+    $scope.addUser = function(){
+        $http({
+            method: 'POST',
+            url: 'admin/users/add',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data: $httpParamSerializerJQLike({
+                login: $scope.login,
+                password: $scope.password
+            })
+        }).then(function successCallback(){
+            $scope.login = ''
+            $scope.password = ''
+            $scope.$parent.loadUsers()
+        })
+    }
+})
+
 app.controller('admin-stats', function($scope, $http){
     $scope.ticketsChartData = []
     $scope.ticketsChartLabels = []
