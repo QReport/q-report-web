@@ -1,4 +1,4 @@
-<div class="container" ng-controller="admin-global">
+<div class="container" ng-controller="admin-users" ng-init="loadUsers()">
     <div ng-include="'navigation.html'"></div>
 
     <div class="row">
@@ -9,7 +9,48 @@
 
         <!--Content-->
         <div class="col-md-10">
-            TODO
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <th>Login</th>
+                        <button class="btn btn-success pull-right"
+                                data-toggle="modal" data-target="#new-user-modal">Add new</button>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>
+                                {{ user.username }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--New user modal-->
+        <div ng-controller="new-user-modal" id="new-user-modal"  class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">New user</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--new user form-->
+                        <div class="form-group">
+                            <label>User login:</label>
+                            <input ng-model="login" autocomplete="new-login" type="text" class="form-control">
+                            <label>User password</label>
+                            <input ng-model="password" autocomplete="new-password" type="password" class="form-control">
+                            <input type="button" class="form-control" data-dismiss="modal" ng-click="addUser()">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
