@@ -16,6 +16,9 @@ apply plugin: 'idea'
 repositories {
     mavenCentral()
     jcenter()
+    maven {
+        url "http://jitpack.io"
+    }
 }
 
 jar {
@@ -24,6 +27,7 @@ jar {
 }
 
 dependencies {
+    compile 'com.github.QReport:q-report-common:-SNAPSHOT'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.sparkjava:spark-core:2.3'
     compile 'org.slf4j:slf4j-api:1.7.12'

@@ -3,10 +3,12 @@ package ru.redenergy.report.web
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.field.DataPersisterManager
+import com.j256.ormlite.field.DatabaseFieldConfig
 import com.j256.ormlite.jdbc.JdbcConnectionSource
+import com.j256.ormlite.table.DatabaseTableConfig
 import com.j256.ormlite.table.TableUtils
 import ru.redenergy.report.web.config.IAppConfig
-import ru.redenergy.report.web.entities.Ticket
+import ru.redenergy.report.common.entity.Ticket
 import ru.redenergy.report.web.entities.User
 import ru.redenergy.report.web.exception.NotAuthorizedException
 import ru.redenergy.report.web.filter.AuthFilter
@@ -22,9 +24,17 @@ class QReportApplication(val config: IAppConfig) {
         DataPersisterManager.registerDataPersisters(JsonPersister.getSingleton())
     }
 
+    var ticketConfig = DatabaseTableConfig(Ticket::class.java, arrayListOf<DatabaseFieldConfig>().apply {
+        add(DatabaseFieldConfig("uid").apply { isId = true })
+        add(DatabaseFieldConfig("status"))
+        add(DatabaseFieldConfig("sender"))
+        add(DatabaseFieldConfig("reason"))
+        add(DatabaseFieldConfig("messages").apply { persisterClass = JsonPersister::class.java })
+    }).apply { tableName = "tickets" }
+
     var connectionSource = JdbcConnectionSource(config.databasePath, config.databaseLogin, config.databasePassword)
 
-    var ticketDao = DaoManager.createDao<Dao<Ticket, UUID>, Ticket>(connectionSource, Ticket::class.java)
+    var ticketDao = DaoManager.createDao<Dao<Ticket, UUID>, Ticket>(connectionSource, ticketConfig)
 
     var userDao = DaoManager.createDao<Dao<User, UUID>, User>(connectionSource, User::class.java)
 

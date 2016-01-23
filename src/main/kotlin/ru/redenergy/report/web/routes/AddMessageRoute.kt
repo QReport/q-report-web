@@ -1,7 +1,7 @@
 package ru.redenergy.report.web.routes
 
+import ru.redenergy.report.common.entity.TicketMessage
 import ru.redenergy.report.web.QReportApplication
-import ru.redenergy.report.web.entities.TicketMessage
 import ru.redenergy.report.web.response.StatusResponse
 import spark.Request
 import spark.Response

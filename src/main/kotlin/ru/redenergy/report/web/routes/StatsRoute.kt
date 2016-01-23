@@ -2,9 +2,9 @@ package ru.redenergy.report.web.routes
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import ru.redenergy.report.common.TicketReason
+import ru.redenergy.report.common.entity.Ticket
 import ru.redenergy.report.web.QReportApplication
-import ru.redenergy.report.web.entities.Ticket
-import ru.redenergy.report.web.entities.TicketReason
 import ru.redenergy.report.web.response.StatusResponse
 import spark.Request
 import spark.Response
