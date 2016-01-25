@@ -42,7 +42,25 @@
                             <input ng-model="login" autocomplete="new-login" type="text" class="form-control">
                             <label>User password</label>
                             <input ng-model="password" autocomplete="new-password" type="password" class="form-control">
-                            <input type="button" class="form-control" data-dismiss="modal" ng-click="addUser()">
+                            <label>Can manage users</label>
+                            <input ng-model="editUsers" type="checkbox" class="checkbox"> <br>
+                            <label>Full server access</label>
+                            <input ng-model="fullServerAccess" type="checkbox" class="checkbox"> <br>
+
+                            <div ng-show="!fullServerAccess">
+                                <label>Servers:</label>
+                                <button class="btn btn-default" ng-click="addPermission()">Add server</button><br>
+                                <div ng-repeat="server in permissions">
+                                    <label>Server name</label>
+                                    <input class="form-control" type="text" ng-model="server.server">
+                                    <label>View </label><input type="checkbox" ng-model="server.view">
+                                    <label>Modify </label><input type="checkbox" ng-model="server.modify">
+                                    <hr>
+                                </div>
+                            </div>
+                            <br>
+
+                            <input value="Add" type="button" class="form-control" data-dismiss="modal" ng-click="addUser()">
                         </div>
 
                     </div>

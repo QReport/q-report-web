@@ -179,6 +179,13 @@ app.controller('admin-users', function($scope, $http){
 app.controller('new-user-modal', function($scope, $http, $httpParamSerializerJQLike){
     $scope.login = ''
     $scope.password = ''
+    $scope.editUsers = false
+    $scope.fullServerAccess = true
+    $scope.permissions = [{server: "unknown", view: true, modify: true}]
+
+    $scope.addPermission = function(){
+        $scope.permissions.push({server: "new", view: true, modify: true})
+    }
 
     $scope.addUser = function(){
         $http({
