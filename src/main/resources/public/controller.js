@@ -187,6 +187,11 @@ app.controller('new-user-modal', function($scope, $http, $httpParamSerializerJQL
         $scope.permissions.push({server: "new", view: true, modify: true})
     }
 
+    $scope.removePermission = function(index){
+        $scope.permissions.splice(index, 1)
+        console.log(index)
+    }
+
     $scope.addUser = function(){
         $http({
             method: 'POST',

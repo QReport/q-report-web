@@ -42,20 +42,26 @@
                             <input ng-model="login" autocomplete="new-login" type="text" class="form-control">
                             <label>User password</label>
                             <input ng-model="password" autocomplete="new-password" type="password" class="form-control">
-                            <label>Can manage users</label>
-                            <input ng-model="editUsers" type="checkbox" class="checkbox"> <br>
-                            <label>Full server access</label>
-                            <input ng-model="fullServerAccess" type="checkbox" class="checkbox"> <br>
+                            <label>Can manage users
+                                <input ng-model="editUsers" type="checkbox" class="checkbox">
+                            </label>
+                            <br>
+                            <label>Full server access
+                                <input ng-model="fullServerAccess" type="checkbox" class="checkbox">
+                            </label>
 
                             <div ng-show="!fullServerAccess">
                                 <label>Servers:</label>
-                                <button class="btn btn-default" ng-click="addPermission()">Add server</button><br>
+                                <button class="btn btn-default" ng-click="addPermission()">Add server</button><br><br>
                                 <div ng-repeat="server in permissions">
-                                    <label>Server name</label>
-                                    <input class="form-control" type="text" ng-model="server.server">
-                                    <label>View </label><input type="checkbox" ng-model="server.view">
-                                    <label>Modify </label><input type="checkbox" ng-model="server.modify">
-                                    <hr>
+                                    <div class="form-inline">
+                                        <input class="form-control" type="text" ng-model="server.server">
+                                        <label>View <input type="checkbox" ng-model="server.view"> </label>
+                                        <label>Modify <input type="checkbox" ng-model="server.modify"> </label>
+                                        <button class="btn btn-danger" ng-click="removePermission($index)">Remove</button>
+                                    </div>
+                                    <br>
+
                                 </div>
                             </div>
                             <br>
