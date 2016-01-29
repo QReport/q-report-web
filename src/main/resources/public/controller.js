@@ -199,7 +199,10 @@ app.controller('new-user-modal', function($scope, $http, $httpParamSerializerJQL
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: $httpParamSerializerJQLike({
                 login: $scope.login,
-                password: $scope.password
+                password: $scope.password,
+                editUsers: $scope.editUsers,
+                fullServerAccess: $scope.fullServerAccess,
+                serverPermissions: JSON.stringify($scope.permissions)
             })
         }).then(function successCallback(){
             $scope.login = ''
