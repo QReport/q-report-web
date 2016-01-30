@@ -54,6 +54,7 @@ class QReportApplication(val config: IAppConfig) {
         Spark.get("/admin/reports/:id", ReportViewRoute(this), JsonTransformer())
         Spark.get("/admin/stats", StatsRoute(this), JsonTransformer())
         Spark.get("/admin/users", UsersInfoRoute(this), JsonTransformer())
+        Spark.get("/isLoggedIn", IsLoggedInRoute(this), JsonTransformer())
 
         Spark.post("/auth", AuthUserRoute(this), JsonTransformer())
 
@@ -66,5 +67,11 @@ class QReportApplication(val config: IAppConfig) {
             res.status(401)
         })
     }
+
+    /**
+     * Checks if given access token is valid and relates to any of users
+     */
+    fun isAccessTokenValid(accessToken: String): Boolean =
+            userDao.queryBuilder().where().eq("accessToken", accessToken).queryForFirst() != null
 
 }
