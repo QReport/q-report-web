@@ -13,6 +13,8 @@ angular.module('qreport')
     $scope.auth = function(){
         AuthService.login($scope.login, $scope.password, function(){
             $location.path('/dashboard')
+        }, function(){
+            $scope.error = "Error! Invalid login or password"
         })
     }
 })

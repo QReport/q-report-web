@@ -1,7 +1,7 @@
 <!--Template which displays information about given ticket-->
 <!--Fetches data about ticket from backend on load-->
 <div class="container" ng-controller="ticket" ng-init="loadTicketData()">
-    <div ng-include="'navigation.html'"></div>
+    <div ng-include="'templates/navigation.html'"></div>
 
     <!--Title-->
     <h3 class="form-inline">Created by {{ ticket.messages[0].sender }} {{ formatTimestampRelative(ticket.messages[0].timestamp) }}
