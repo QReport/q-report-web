@@ -30,7 +30,7 @@ class AuthUserRoute(val app: QReportApplication): Route {
 
         response.cookie("access_token", accessToken)
 
-        return StatusResponse(true, mapOf(Pair("access_token", accessToken)))
+        return StatusResponse(true, user)
 
     }
 
