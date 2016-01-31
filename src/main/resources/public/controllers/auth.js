@@ -1,24 +1,18 @@
 angular.module('qreport')
-.controller('auth', function($scope, $http, $httpParamSerializerJQLike, $location){
+.controller('auth', function($scope, $http, $httpParamSerializerJQLike, $location, AuthService){
     $scope.error = ''
     $scope.login = ''
     $scope.password = ''
-    $scope.auth = function() {
-        $http({
-            url: 'auth',
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: $httpParamSerializerJQLike({
-                login: $scope.login,
-                password: $scope.password
-            })
-        }).then(function(response){
-            if(response.data.ok){
-                $location.path('/dashboard')
-            } else {
-                $scope.error = response.data.error
-            }
-            console.log(response)
+
+    $scope.checkAlreadyAuthorized = function(){
+        AuthService.isLoggedIn().then(function(response){
+            if(response.data.ok) $location.path('/dashboard')
+        })
+    }
+
+    $scope.auth = function(){
+        AuthService.login($scope.login, $scope.password, function(){
+            $location.path('/dashboard')
         })
     }
 })
