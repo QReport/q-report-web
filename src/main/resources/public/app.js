@@ -10,22 +10,22 @@ app.run(function($rootScope){
 app.config(function($routeProvider){
     $routeProvider
     .when("/auth", {
-        templateUrl: 'auth.html'
+        templateUrl: 'templates/auth.html'
     })
     .when("/dashboard", {
-        templateUrl: 'dashboard.html'
+        templateUrl: 'templates/dashboard.html'
     })
     .when("/ticket/:id", {
-        templateUrl: 'ticket.html'
+        templateUrl: 'templates/ticket.html'
     })
     .when("/admin", {
-        templateUrl: 'admin/admin-global.html'
+        templateUrl: 'templates/admin/admin-global.html'
     })
     .when("/admin/users", {
-        templateUrl: 'admin/admin-users.html'
+        templateUrl: 'templates/admin/admin-users.html'
     })
     .when("/admin/stats", {
-        templateUrl: 'admin/admin-stats.html'
+        templateUrl: 'templates/admin/admin-stats.html'
     })
     .otherwise({
         redirectTo: '/auth'
