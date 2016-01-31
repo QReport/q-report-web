@@ -57,6 +57,7 @@ class QReportApplication(val config: IAppConfig) {
         Spark.get("/isLoggedIn", IsLoggedInRoute(this), JsonTransformer())
 
         Spark.post("/auth", AuthUserRoute(this), JsonTransformer())
+        Spark.post("/logout", LogOutRoute(this), JsonTransformer())
 
         Spark.post("/admin/users/add", AddUserRoute(this), JsonTransformer())
         Spark.post("/admin/reports/:id/addMessage", AddMessageRoute(this), JsonTransformer())
