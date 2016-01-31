@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav ng-controller="navigation" class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">QReport</a>
@@ -8,7 +8,9 @@
                 <li><a href="/#/dashboard">Tickets</a></li>
                 <li><a href="/#/admin">Admin panel</a></li>
             </ul>
-            <p class="navbar-text navbar-right">Log out</p>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-click="logout()" style="cursor: pointer"><strong>Log out</strong></a></li>
+            </ul>
         </div>
     </div>
 </nav>
