@@ -20,6 +20,12 @@
                         <tr ng-repeat="user in users">
                             <td>
                                 {{ user.username }}
+                                <div class="pull-right">
+                                    <span ng-show="user.editUsers" class="glyphicon glyphicon-wrench"
+                                          title="Can edit other users permissions"></span>
+                                    <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
+                                          title="Has full server access"></span>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
