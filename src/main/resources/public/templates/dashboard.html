@@ -7,6 +7,7 @@
                 <th>ID</th>
                 <th>Sender</th>
                 <th>Text</th>
+                <th>Server</th>
                 <th>Reason</th>
                 <th>Status</th>
                 <th>Created</th>
@@ -17,6 +18,7 @@
                     <td class="col-md-1"><a ng-href="/#/ticket/{{ticket.uid}}">{{ ticket.uid.substring(0, 8) }}</a></td>
                     <td class="col-md-1">{{ ticket.sender }}</td>
                     <td class="col-md-5">{{ shortenText(ticket.messages[0].text, 80, true) }}</td>
+                    <td class="col-md-1">{{ ticket.server }}</td>
                     <td class="col-md-1">{{ ticket.reason }}</td>
                     <td class="col-md-1">{{ ticket.status }}</td>
                     <td class="col-md-1" title="{{ formatTimestamp(ticket.messages[0].timestamp, 'DD.MM HH:mm:ss') }}">
