@@ -19,9 +19,7 @@ class ReportsListRoute(val app: QReportApplication): Route {
         if(user.fullServerAccess){
            result.addAll(tickets)
         } else {
-            result.addAll(tickets.filter { user.serverPermission
-                                 .firstOrNull { s -> s.server.equals(it.server) }?.read
-                                 ?: false })
+            result.addAll(tickets.filter { user.canReadOnServer(it.server )})
         }
 
         return StatusResponse(true, result)
