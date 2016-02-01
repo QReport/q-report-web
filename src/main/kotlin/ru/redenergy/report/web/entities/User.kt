@@ -31,4 +31,8 @@ data class User(@DatabaseField(id = true)
 
 
     constructor(): this(UUID.randomUUID(), "", false, false, arrayListOf<Permission>(), "", "")
+
+    fun canReadOnServer(server: String) = serverPermission.firstOrNull { it.server.equals(server, true) }?.read ?: false
+
+    fun canModifyOnServer(server: String) = serverPermission.firstOrNull { it.server.equals(server, true)}?.modify ?: false
 }
