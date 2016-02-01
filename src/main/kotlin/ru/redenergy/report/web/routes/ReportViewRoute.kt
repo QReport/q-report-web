@@ -10,7 +10,15 @@ import java.util.*
 class ReportViewRoute(val app: QReportApplication): Route {
     override fun handle(request: Request, response: Response): Any? {
         val uid = UUID.fromString(request.params("id"))
-        val ticket = app.ticketDao.queryBuilder().where().eq("uid", uid).queryForFirst()
-        return StatusResponse(true, ticket)
+
+        val user = app.findUserByAccessToken(request.cookie("access_token"))
+
+        val ticket = app.ticketDao.queryBuilder().where().eq("uid", uid).queryForFirst() ?: return StatusResponse(false)
+
+        if(user.fullServerAccess || user.canReadOnServer(ticket.server)){
+            return StatusResponse(true, ticket)
+        } else {
+            return StatusResponse(false)
+        }
     }
 }

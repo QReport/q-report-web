@@ -3,33 +3,37 @@
 <div class="container" ng-controller="ticket" ng-init="loadTicketData()">
     <div ng-include="'templates/navigation.html'"></div>
 
-    <!--Title-->
-    <h3 class="form-inline">Created by {{ ticket.messages[0].sender }} {{ formatTimestampRelative(ticket.messages[0].timestamp) }}
-        <!--Select element with available ticket status, one item select it sends ajax request to the backend and updates ticket data after it-->
-        <select ng-model="selectedStatus" ng-options="status for status in availableStatuses" ng-change="updateStatus()" class="form-control"></select>
-        </h3>
-    <hr />
+    <div ng-show="error" class="alert alert-danger">
+        <strong>Error!</strong> Unable to load data possibly no ticket with such ID or you don't have access to it
+    </div>
+    <div ng-show="!error">
+        <!--Title-->
+        <h3 class="form-inline">Created by {{ ticket.messages[0].sender }} {{ formatTimestampRelative(ticket.messages[0].timestamp) }}
+            <!--Select element with available ticket status, one item select it sends ajax request to the backend and updates ticket data after it-->
+            <select ng-model="selectedStatus" ng-options="status for status in availableStatuses" ng-change="updateStatus()" class="form-control"></select>
+            </h3>
+        <hr />
 
-    <!--Message history-->
-        <div class="panel clearfix panel-default" ng-repeat="message in ticket.messages">
+        <!--Message history-->
+            <div class="panel clearfix panel-default" ng-repeat="message in ticket.messages">
+                <div class="panel-heading clearfix">
+                    <span class="panel-title pull-left">{{ message.sender }} <span class="text-muted">| {{ formatTimestampRelative(message.timestamp) }} </span></span>
+                </div>
+                <div class="panel-body">
+                    {{ message.text }}
+                </div>
+            </div>
+
+        <!--New message field-->
+        <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <span class="panel-title pull-left">{{ message.sender }} <span class="text-muted">| {{ formatTimestampRelative(message.timestamp) }} </span></span>
+                <span class="panel-title pull-left">New message</span>
             </div>
             <div class="panel-body">
-                {{ message.text }}
+                <textarea ng-model="newMessage" class="form-control" style="resize:vertical;" rows="5"></textarea>
+                <br />
+                <button ng-click="addMessage()" class="btn btn-default pull-right">Comment</button>
             </div>
         </div>
-
-    <!--New message field-->
-    <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-            <span class="panel-title pull-left">New message</span>
-        </div>
-        <div class="panel-body">
-            <textarea ng-model="newMessage" class="form-control" style="resize:vertical;" rows="5"></textarea>
-            <br />
-            <button ng-click="addMessage()" class="btn btn-default pull-right">Comment</button>
-        </div>
     </div>
-
 </div>

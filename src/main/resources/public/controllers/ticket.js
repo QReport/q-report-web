@@ -1,5 +1,6 @@
 angular.module('qreport')
 .controller('ticket', function($scope, $http, $location, $routeParams, $httpParamSerializerJQLike){
+    $scope.error = false
     var ticketId = $routeParams.id
     $scope.newMessage = ''
     $scope.availableStatuses = ['OPEN', 'CLOSED', 'IN_PROGRESS']
@@ -11,9 +12,13 @@ angular.module('qreport')
            method: 'GET',
            url: '/admin/reports/' + ticketId
         }).then(function successCallback(response){
-            $scope.ticket = response.data.value
-            $scope.selectedStatus = response.data.value.status
-            console.log(response)
+            if(response.data.ok){
+                $scope.ticket = response.data.value
+                $scope.selectedStatus = response.data.value.status
+                console.log(response)
+            } else {
+                $scope.error = true
+            }
         }, function errorCallback(response){
             if(response.status == 401 || response.status == 404){
                 $location.path('/auth')
