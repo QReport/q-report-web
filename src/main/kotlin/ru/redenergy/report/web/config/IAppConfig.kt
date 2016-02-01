@@ -9,4 +9,6 @@ interface IAppConfig {
     val databaseLogin: String
 
     val databasePassword: String
+
+    val port: Int
 }

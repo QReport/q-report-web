@@ -47,6 +47,8 @@ class QReportApplication(val config: IAppConfig) {
     }
 
     fun registerRoutes(){
+        Spark.port(config.port)
+
         Spark.staticFileLocation("/public")
 
         Spark.before("/admin/*", AuthFilter(this))
