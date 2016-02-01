@@ -28,6 +28,7 @@ class QReportApplication(val config: IAppConfig) {
         add(DatabaseFieldConfig("uid").apply { isId = true })
         add(DatabaseFieldConfig("status"))
         add(DatabaseFieldConfig("sender"))
+        add(DatabaseFieldConfig("server"))
         add(DatabaseFieldConfig("reason"))
         add(DatabaseFieldConfig("messages").apply { persisterClass = JsonPersister::class.java })
     }).apply { tableName = "tickets" }
@@ -68,6 +69,9 @@ class QReportApplication(val config: IAppConfig) {
             res.status(401)
         })
     }
+
+    fun findUserByAccessToken(accessToken: String): User =
+            userDao.queryBuilder().where().eq("accessToken", accessToken).queryForFirst()
 
     /**
      * Checks if given access token is valid and relates to any of users
