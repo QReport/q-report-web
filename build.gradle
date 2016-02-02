@@ -21,6 +21,10 @@ buildscript{
 apply plugin: 'forge'
 apply plugin: 'kotlin'
 
+
+archivesBaseName = 'qreport-web'
+version = 'v1.0.0'
+
 repositories {
     mavenCentral()
     jcenter()
@@ -29,28 +33,78 @@ repositories {
     }
 }
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-jar {
-    baseName = "q-report-web"
-    version = "v0.0.1"
-}
-
 minecraft {
     version = "1.7.10-10.13.4.1564-1.7.10"
     runDir = "eclipse"
 }
 
+
+configurations {
+    shade //contains artifacts which would be included in dependent jar
+    standalone //contains artifacts which would be included in standalone jar
+
+    standalone.extendsFrom shade
+
+    compile.extendsFrom standalone
+}
+
+configurations.all { println(it)}
+
 dependencies {
-    compile 'com.github.QReport:q-report-common:v1.2.0-SNAPSHOT'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.sparkjava:spark-core:2.3'
-    compile 'org.xerial:sqlite-jdbc:3.7.2'
-    compile 'mysql:mysql-connector-java:5.1.37'
-    compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile 'com.j256.ormlite:ormlite-jdbc:4.48'
+    shade 'com.sparkjava:spark-core:2.3'
+    shade 'org.slf4j:slf4j-api:1.7.12'
+    shade 'org.slf4j:slf4j-simple:1.7.12'
+    standalone 'com.github.QReport:q-report-common:v1.2.0-SNAPSHOT'
+    standalone "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    standalone 'org.xerial:sqlite-jdbc:3.7.2'
+    standalone 'mysql:mysql-connector-java:5.1.37'
+    standalone 'com.j256.ormlite:ormlite-core:4.48'
+    standalone 'com.j256.ormlite:ormlite-jdbc:4.48'
+    standalone 'com.google.code.gson:gson:2.2.4'
+    standalone 'commons-codec:commons-codec:1.10'
+    standalone 'org.apache.commons:commons-lang3:3.2.1'
     testCompile 'junit:junit:4.12'
 }
+
+/**
+ * Generates jar file with application, spark code and slf4j in it
+ * Should be used in pair with QReport as a mod on server
+ */
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-ING', 'META-INF/**'
+        }
+    }
+}
+
+/**
+ * Generates standalone jar file with application and all the dependencies and Kotlin runtime library
+ * Should be started from command line
+ */
+task standalone(type: Jar){
+    from sourceSets.main.output
+
+    classifier = 'standalone'
+
+    configurations.standalone.each  { dep ->
+        from(project.zipTree(dep)){
+            exclude 'META-ING', 'META-INF/**', 'about.html'
+        }
+    }
+
+    manifest {
+        attributes 'Main-Class': 'ru.redenergy.report.web.StarterKt'
+    }
+}
+
+
+tasks.jar.dependsOn 'standalone'
+
+artifacts {
+    jar
+    standalone
+}
+
+
 
