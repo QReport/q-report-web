@@ -4,26 +4,26 @@
     <div class="table-responsive">
         <table class="table">
             <thead>
-                <th>ID</th>
-                <th>Sender</th>
-                <th>Text</th>
-                <th>Server</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>Last update</th>
+                <th style="width: 5%">ID</th>
+                <th style="width: 15%">Sender</th>
+                <th style="width: 35%">Text</th>
+                <th style="width: 5%">Server</th>
+                <th style="width: 5%">Reason</th>
+                <th style="width: 5%">Status</th>
+                <th style="width: 15%">Created</th>
+                <th style="width: 15%">Last update</th>
             </thead>
             <tbody>
                 <tr ng-repeat="ticket in tickets">
-                    <td class="col-md-1"><a ng-href="/#/ticket/{{ticket.uid}}">{{ ticket.uid.substring(0, 8) }}</a></td>
-                    <td class="col-md-1">{{ ticket.sender }}</td>
-                    <td class="col-md-5">{{ shortenText(ticket.messages[0].text, 80, true) }}</td>
-                    <td class="col-md-1">{{ ticket.server }}</td>
-                    <td class="col-md-1">{{ ticket.reason }}</td>
-                    <td class="col-md-1">{{ ticket.status }}</td>
-                    <td class="col-md-1" title="{{ formatTimestamp(ticket.messages[0].timestamp, 'DD.MM HH:mm:ss') }}">
+                    <td><a ng-href="/#/ticket/{{ticket.uid}}">#{{ ticket.uid }}</a></td>
+                    <td>{{ ticket.sender }}</td>
+                    <td>{{ shortenText(ticket.messages[0].text, 80, true) }}</td>
+                    <td>{{ ticket.server }}</td>
+                    <td>{{ ticket.reason }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td title="{{ formatTimestamp(ticket.messages[0].timestamp, 'DD.MM HH:mm:ss') }}">
                         {{ formatTimestampRelative(ticket.messages[0].timestamp) }}</td>
-                    <td class="col-md-1" title="{{ formatTimestamp(ticket.messages.slice(-1)[0].timestamp, 'DD.MM HH:mm:ss') }}">
+                    <td class="col-md-2" title="{{ formatTimestamp(ticket.messages.slice(-1)[0].timestamp, 'DD.MM HH:mm:ss') }}">
                         {{ formatTimestampRelative(ticket.messages.slice(-1)[0].timestamp) }}</td>
                 </tr>
             </tbody>
