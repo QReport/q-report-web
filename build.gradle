@@ -48,7 +48,9 @@ configurations {
     compile.extendsFrom standalone
 }
 
-configurations.all { println(it)}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 
 dependencies {
     shade 'com.sparkjava:spark-core:2.3'
