@@ -82,7 +82,7 @@ class QReportApplication(val config: IAppConfig) {
         })
     }
 
-    fun findUserByAccessToken(accessToken: String): User =
+    fun findUserByAccessToken(accessToken: String): User? =
             userDao.queryBuilder().where().eq("accessToken", accessToken).queryForFirst()
 
     /**

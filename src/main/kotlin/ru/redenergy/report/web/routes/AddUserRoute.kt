@@ -15,6 +15,9 @@ import java.util.*
 class AddUserRoute(val app: QReportApplication): Route {
 
     override fun handle(request: Request, response: Response): Any? {
+        val requester = app.findUserByAccessToken(request.cookie("access_token"))
+        if(!requester.editUsers) return StatusResponse(false)
+
         val login = request.queryParams("login")
         val password = request.queryParams("password")
         val editUsers = request.queryParams("editUsers").toBoolean()
