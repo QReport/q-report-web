@@ -40,10 +40,14 @@ class QReportApplication(val config: IAppConfig) {
     var userDao = DaoManager.createDao<Dao<User, UUID>, User>(connectionSource, User::class.java)
 
 
-    fun start(args: Array<String>) {
+    fun start() {
         registerRoutes()
         TableUtils.createTableIfNotExists(connectionSource, Ticket::class.java)
         TableUtils.createTableIfNotExists(connectionSource, User::class.java)
+    }
+
+    fun stop(){
+        Spark.stop()
     }
 
     fun registerRoutes(){
