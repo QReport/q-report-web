@@ -7,8 +7,10 @@ import com.j256.ormlite.field.DatabaseFieldConfig
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.DatabaseTableConfig
 import com.j256.ormlite.table.TableUtils
+import org.apache.commons.codec.digest.DigestUtils
 import ru.redenergy.report.web.config.IAppConfig
 import ru.redenergy.report.common.entity.Ticket
+import ru.redenergy.report.web.entities.Permission
 import ru.redenergy.report.web.entities.User
 import ru.redenergy.report.web.exception.NotAuthorizedException
 import ru.redenergy.report.web.filter.AuthFilter
@@ -43,7 +45,11 @@ class QReportApplication(val config: IAppConfig) {
     fun start() {
         registerRoutes()
         TableUtils.createTableIfNotExists(connectionSource, Ticket::class.java)
-        TableUtils.createTableIfNotExists(connectionSource, User::class.java)
+
+        if(!userDao.isTableExists) {
+            TableUtils.createTableIfNotExists(connectionSource, User::class.java)
+            userDao.create(User(UUID.randomUUID(), "root", true, true, arrayListOf<Permission>(), DigestUtils.sha256Hex("rainbow"), ""))
+        }
     }
 
     fun stop(){
