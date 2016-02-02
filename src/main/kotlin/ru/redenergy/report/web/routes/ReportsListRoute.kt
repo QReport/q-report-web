@@ -11,7 +11,7 @@ import spark.Route
 class ReportsListRoute(val app: QReportApplication): Route {
 
     override fun handle(request: Request, response: Response?): Any? {
-        val user = app.findUserByAccessToken(request.cookie("access_token"))
+        val user = app.findUserByAccessToken(request.cookie("access_token")) ?: return StatusResponse(false)
 
         val tickets = app.ticketDao.queryForAll()
         val result = arrayListOf<Ticket>()

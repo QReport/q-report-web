@@ -27,7 +27,7 @@ class QReportApplication(val config: IAppConfig) {
     }
 
     var ticketConfig = DatabaseTableConfig(Ticket::class.java, arrayListOf<DatabaseFieldConfig>().apply {
-        add(DatabaseFieldConfig("uid").apply { isId = true })
+        add(DatabaseFieldConfig("uid").apply { isGeneratedId = true })
         add(DatabaseFieldConfig("status"))
         add(DatabaseFieldConfig("sender"))
         add(DatabaseFieldConfig("server"))
@@ -37,7 +37,7 @@ class QReportApplication(val config: IAppConfig) {
 
     var connectionSource = JdbcConnectionSource(config.databasePath, config.databaseLogin, config.databasePassword)
 
-    var ticketDao = DaoManager.createDao<Dao<Ticket, UUID>, Ticket>(connectionSource, ticketConfig)
+    var ticketDao = DaoManager.createDao<Dao<Ticket, Int>, Ticket>(connectionSource, ticketConfig)
 
     var userDao = DaoManager.createDao<Dao<User, UUID>, User>(connectionSource, User::class.java)
 

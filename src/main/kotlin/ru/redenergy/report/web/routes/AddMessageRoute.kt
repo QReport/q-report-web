@@ -13,15 +13,18 @@ class AddMessageRoute(val app: QReportApplication): Route {
     override fun handle(request: Request, response: Response): Any {
         val user = app.findUserByAccessToken(request.cookie("access_token")) ?: return StatusResponse(false)
 
-        val uid = UUID.fromString(request.params("id"))
+        val uid = request.params("id").toInt()
         val ticket = app.ticketDao.queryForId(uid)
 
-        if(!user.canModifyOnServer(ticket.server)) return StatusResponse(false)
+        if(user.fullServerAccess || user.canModifyOnServer(ticket.server)) {
 
-        val text = request.queryParams("text")
-        ticket.messages.add(TicketMessage(user.username, text))
-        app.ticketDao.update(ticket)
-        return StatusResponse(true, null)
+            val text = request.queryParams("text")
+            ticket.messages.add(TicketMessage(user.username, text))
+            app.ticketDao.update(ticket)
+            return StatusResponse(true, null)
+        } else {
+            return StatusResponse(false)
+        }
     }
 
 }
