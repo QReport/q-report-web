@@ -16,7 +16,7 @@ class AddUserRoute(val app: QReportApplication): Route {
 
     override fun handle(request: Request, response: Response): Any? {
         val requester = app.findUserByAccessToken(request.cookie("access_token")) ?: return StatusResponse(false)
-        if(!requester.editUsers) return StatusResponse(false)
+        if(!requester.admin) return StatusResponse(false)
 
         val login = request.queryParams("login")
         val password = request.queryParams("password")

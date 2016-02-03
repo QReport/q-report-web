@@ -14,7 +14,7 @@ data class User(@DatabaseField(id = true)
                 var username: String,
 
                 @DatabaseField
-                var editUsers: Boolean,
+                var admin: Boolean,
 
                 @DatabaseField
                 var fullServerAccess: Boolean,

@@ -21,8 +21,8 @@
                             <td>
                                 {{ user.username }}
                                 <div class="pull-right">
-                                    <span ng-show="user.editUsers" class="glyphicon glyphicon-wrench"
-                                          title="Can edit other users permissions"></span>
+                                    <span ng-show="user.admin" class="glyphicon glyphicon-wrench"
+                                          title="Has admin access"></span>
                                     <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
                                           title="Has full server access"></span>
                                 </div>
@@ -48,7 +48,7 @@
                             <input ng-model="login" autocomplete="new-login" type="text" class="form-control">
                             <label>User password</label>
                             <input ng-model="password" autocomplete="new-password" type="password" class="form-control">
-                            <label>Can manage users
+                            <label>Admin access
                                 <input ng-model="editUsers" type="checkbox" class="checkbox">
                             </label>
                             <br>
