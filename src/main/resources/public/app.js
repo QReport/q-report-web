@@ -1,4 +1,4 @@
-var app = angular.module('qreport', ['ngRoute', 'chart.js'])
+var app = angular.module('qreport', ['ngRoute', 'chart.js', 'ngTagsInput'])
 
 
 app.run(function($rootScope){
