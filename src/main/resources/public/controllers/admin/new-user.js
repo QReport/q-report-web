@@ -1,19 +1,11 @@
 angular.module('qreport')
 .controller('new-user-modal', function($scope, $http, $httpParamSerializerJQLike){
+    $scope.availableLevels = ['MASTER', 'HELPER', 'GUEST']
     $scope.login = ''
     $scope.password = ''
-    $scope.editUsers = false
+    $scope.level = 'GUEST'
     $scope.fullServerAccess = true
-    $scope.permissions = [{server: "unknown", view: true, modify: true}]
-
-    $scope.addPermission = function(){
-        $scope.permissions.push({server: "new", view: true, modify: true})
-    }
-
-    $scope.removePermission = function(index){
-        $scope.permissions.splice(index, 1)
-        console.log(index)
-    }
+    $scope.servers = [{text: 'unknown'}]
 
     $scope.addUser = function(){
         $http({
@@ -23,9 +15,9 @@ angular.module('qreport')
             data: $httpParamSerializerJQLike({
                 login: $scope.login,
                 password: $scope.password,
-                editUsers: $scope.editUsers,
+                level: $scope.level,
                 fullServerAccess: $scope.fullServerAccess,
-                serverPermissions: JSON.stringify($scope.permissions)
+                servers: JSON.stringify($scope.servers.map(function(s){ return s.text}))
             })
         }).then(function successCallback(){
             $scope.login = ''

@@ -1,15 +1,15 @@
 angular.module('qreport')
 .controller('admin-users', function($scope, $http, AuthService){
     $scope.users = []
-    $scope.canRemove = false
+    $scope.isCurrentUserMaster = false
 
     $scope.init = function(){
         if(AuthService.getCurrentUser() != null){
-            $scope.canRemove = AuthService.getCurrentUser().admin
+            $scope.isCurrentUserMaster = AuthService.getCurrentUser().level === 'MASTER'
         } else {
             AuthService.isLoggedIn().then(function(res) {
                 AuthService.setCurrentUser(res.data.value)
-                $scope.canRemove = AuthService.getCurrentUser().admin
+                $scope.isCurrentUserMaster = AuthService.getCurrentUser().level === 'MASTER'
             })
         }
     }

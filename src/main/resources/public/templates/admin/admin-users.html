@@ -13,7 +13,7 @@
                 <table class="table">
                     <thead>
                         <th>Login</th>
-                        <button class="btn btn-success pull-right"
+                        <button class="btn btn-success pull-right" ng-show="isCurrentUserMaster"
                                 data-toggle="modal" data-target="#new-user-modal">Add new</button>
                     </thead>
                     <tbody>
@@ -25,7 +25,7 @@
                                  <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
                                        title="Has full server access"></span>
                                 <div class="pull-right">
-                                    <button ng-show="canRemove" ng-click="removeUser(user.username)" class="btn btn-danger">Remove</button>
+                                    <button ng-show="isCurrentUserMaster" ng-click="removeUser(user.username)" class="btn btn-danger">Remove</button>
                                 </div>
                             </td>
                         </tr>
@@ -49,8 +49,8 @@
                             <input ng-model="login" autocomplete="new-login" type="text" class="form-control">
                             <label>User password</label>
                             <input ng-model="password" autocomplete="new-password" type="password" class="form-control">
-                            <label>Admin access
-                                <input ng-model="editUsers" type="checkbox" class="checkbox">
+                            <label>Access level
+                                <select ng-model="level" ng-options="level for level in availableLevels" class="form-control"></select>
                             </label>
                             <br>
                             <label>Full server access
@@ -59,17 +59,7 @@
 
                             <div ng-show="!fullServerAccess">
                                 <label>Servers:</label>
-                                <button class="btn btn-default" ng-click="addPermission()">Add server</button><br><br>
-                                <div ng-repeat="server in permissions">
-                                    <div class="form-inline">
-                                        <input class="form-control" type="text" ng-model="server.server">
-                                        <label>View <input type="checkbox" ng-model="server.view"> </label>
-                                        <label>Modify <input type="checkbox" ng-model="server.modify"> </label>
-                                        <button class="btn btn-danger" ng-click="removePermission($index)">Remove</button>
-                                    </div>
-                                    <br>
-
-                                </div>
+                                <tags-input ng-model="servers"></tags-input>
                             </div>
                             <br>
 

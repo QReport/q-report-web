@@ -6,7 +6,9 @@ angular.module('qreport')
 
     $scope.checkAlreadyAuthorized = function(){
         AuthService.isLoggedIn().then(function(response){
-            if(response.data.ok) $location.path('/dashboard')
+            if(response.data.ok == true) {
+                $location.path('/dashboard')
+            }
         })
     }
 
