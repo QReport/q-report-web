@@ -11,7 +11,7 @@ class IsLoggedInRoute(val app: QReportApplication): Route {
     override fun handle(request: Request, response: Response): Any? {
         val accessToken: String? = request.cookie("access_token")
         if(accessToken != null){
-            val user = app.findUserByAccessToken(accessToken)
+            val user = app.findUserByAccessToken(accessToken) ?: return StatusResponse(false)
             return StatusResponse(true, user)
         } else {
             return StatusResponse(false)
