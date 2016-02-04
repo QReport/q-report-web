@@ -24,12 +24,13 @@ angular.module('qreport')
         },
         logout: function(){
             return $http.post('/logout')
-        }
-        ,
+        },
         isLoggedIn: function(){
             return $http.get('/isLoggedIn')
-        }
-        ,
+        },
+        setCurrentUser: function(user){
+            currentUser = user
+        },
         getCurrentUser: function(){
             return currentUser
         }

@@ -1,4 +1,4 @@
-<div class="container" ng-controller="admin-users" ng-init="loadUsers()">
+<div class="container" ng-controller="admin-users" ng-init="init(); loadUsers()">
     <div ng-include="'templates/navigation.html'"></div>
 
     <div class="row">
@@ -20,11 +20,12 @@
                         <tr ng-repeat="user in users">
                             <td>
                                 {{ user.username }}
+                                 <span ng-show="user.admin" class="glyphicon glyphicon-wrench"
+                                       title="Has admin access"></span>
+                                 <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
+                                       title="Has full server access"></span>
                                 <div class="pull-right">
-                                    <span ng-show="user.admin" class="glyphicon glyphicon-wrench"
-                                          title="Has admin access"></span>
-                                    <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
-                                          title="Has full server access"></span>
+                                    <button ng-show="canRemove" ng-click="removeUser(user.username)" class="btn btn-danger">Remove</button>
                                 </div>
                             </td>
                         </tr>
