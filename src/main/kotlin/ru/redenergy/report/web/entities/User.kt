@@ -14,13 +14,13 @@ data class User(@DatabaseField(id = true)
                 var username: String,
 
                 @DatabaseField
-                var admin: Boolean,
+                var level: AccessLevel,
 
                 @DatabaseField
                 var fullServerAccess: Boolean,
 
                 @DatabaseField(persisterClass = JsonPersister::class)
-                val serverPermission:  List<Permission>,
+                val serverPermission:  List<String>,
 
                 @Transient @DatabaseField
                 var passwordHash: String,
@@ -30,9 +30,12 @@ data class User(@DatabaseField(id = true)
 
 
 
-    constructor(): this(UUID.randomUUID(), "", false, false, arrayListOf<Permission>(), "", "")
+    constructor(): this(UUID.randomUUID(), "", AccessLevel.GUEST, false, arrayListOf<String>(), "", "")
 
-    fun canReadOnServer(server: String) = serverPermission.firstOrNull { it.server.equals(server, true) }?.read ?: false
+    fun canReadOnServer(server: String) =
+            serverPermission.any { it.equals(server) }
 
-    fun canModifyOnServer(server: String) = serverPermission.firstOrNull { it.server.equals(server, true)}?.modify ?: false
+    fun canModifyOnServer(server: String) =
+            (level.equals(AccessLevel.HELPER) || level.equals(AccessLevel.MASTER))
+            && serverPermission.any { it.equals(server) }
 }

@@ -15,9 +15,7 @@ class UpdateStatusRoute(val app: QReportApplication): Route {
         val uid = request.params("id").toInt()
         val ticket = app.ticketDao.queryForId(uid);
 
-        if(user.fullServerAccess || !user.canModifyOnServer(ticket.server)) {
-
-
+        if(user.fullServerAccess || user.canModifyOnServer(ticket.server)) {
             val status = TicketStatus.valueOf(request.queryParams("status"))
             ticket.status = status
             app.ticketDao.update(ticket)
