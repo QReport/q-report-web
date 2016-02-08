@@ -21,7 +21,7 @@ app.config(function($routeProvider){
     .when("/admin", {
         templateUrl: 'templates/admin/admin-global.html'
     })
-    .when("/admin/users", {
+    .when("/admin", {
         templateUrl: 'templates/admin/admin-users.html'
     })
     .when("/admin/stats", {
