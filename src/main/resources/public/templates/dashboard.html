@@ -14,7 +14,7 @@
                 <th style="width: 15%">Last update</th>
             </thead>
             <tbody>
-                <tr ng-repeat="ticket in tickets">
+                <tr ng-repeat="ticket in tickets | startFrom: ticketsOffset() | limitTo: ticketsPerPage">
                     <td><a ng-href="/#/ticket/{{ticket.uid}}">#{{ ticket.uid }}</a></td>
                     <td>{{ ticket.sender }}</td>
                     <td>{{ shortenText(ticket.messages[0].text, 80, true) }}</td>
@@ -28,5 +28,9 @@
                 </tr>
             </tbody>
         </table>
+        <div class="text-center">
+            <uib-pagination total-items="tickets.length" ng-model="currentPage" items-per-page="ticketsPerPage" boundary-link-numbers="true">
+            </uib-pagination>
+        </div>
     </div>
 </div>

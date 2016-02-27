@@ -1,5 +1,13 @@
 angular.module('qreport')
+.filter('startFrom', function(){
+  return function(input, start){
+    start = +start;
+    return input.slice(start);
+  }
+})
 .controller('dashboard', function($scope, $http, $location){
+    $scope.ticketsPerPage = 5
+    $scope.currentPage = 1
     $scope.tickets = []
 
     $scope.formatTimestampRelative = function(millis){
@@ -9,6 +17,31 @@ angular.module('qreport')
     $scope.formatTimestamp = function(millis, format){
         return moment(millis).format(format)
     }
+
+    $scope.nextPage = function(){
+        $scope.currentPage = $scope.currentPage + 1
+    }
+
+    $scope.previousPage = function(){
+        $scope.currentPage = $scope.currentPage - 1
+    }
+
+    $scope.pageAmount = function(){
+        return Math.ceil($scope.tickets.length / $scope.ticketsPerPage)
+    }
+
+    $scope.lastPage = function(){
+        return $scope.currentPage == Math.ceil($scope.tickets.length / $scope.ticketsPerPage - 1)
+    }
+
+    $scope.ticketsOffset = function(){
+        return $scope.ticketsPerPage  * ($scope.currentPage - 1)
+    }
+
+    $scope.setPage = function(page){
+        $scope.currentPage = page
+    }
+
 
     $scope.shortenText = function(text, limiter, ellipsis){
         if(text.length >= limiter){
