@@ -8,7 +8,7 @@ import net.minecraftforge.common.config.Configuration
 import ru.redenergy.report.web.config.AppConfig
 import java.io.File
 
-@Mod(modid = "qreport-web", name = "QReport Web", acceptableRemoteVersions = "*", dependencies = "required-after:qreport-server", modLanguageAdapter = "io.drakon.forgelin.KotlinAdapter")
+@Mod(modid = "qreport-web", name = "QReport Web", acceptableRemoteVersions = "*", dependencies = "required-after:qreport-server", modLanguageAdapter = "io.drakon.forge.kotlin.KotlinAdapter")
 object ForgeStarter {
 
     var jdbcPath = "jdbc:sqlite:${File("").absolutePath}\\reports.sqlite"
