@@ -11,7 +11,7 @@ import java.io.File
 @Mod(modid = "qreport-web", name = "QReport Web", acceptableRemoteVersions = "*", dependencies = "required-after:qreport-server", modLanguageAdapter = "io.drakon.forge.kotlin.KotlinAdapter")
 object ForgeStarter {
 
-    var jdbcPath = "jdbc:sqlite:${File("").absolutePath}\\reports.sqlite"
+    var jdbcPath = "jdbc:sqlite:${File("").absolutePath}${File.separator}reports.sqlite"
     var jdbcLogin = " "
     var jdbcPassword = " "
 
