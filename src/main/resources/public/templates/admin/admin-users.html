@@ -25,13 +25,37 @@
                                  <span ng-show="user.fullServerAccess" class="glyphicon glyphicon-list-alt"
                                        title="Has full server access"></span>
                                 <div class="pull-right">
-                                    <button ng-show="isCurrentUserMaster" ng-click="removeUser(user.username)" class="btn btn-danger">Remove</button>
+                                    <button ng-show="currentUser.uid == user.uid" ng-click="removeUser(user.username)" class="btn btn-success" data-toggle="modal" data-target="#user-settings-modal">Settings</button>
+                                    <button ng-show="isCurrentUserMaster && currentUser.uid != user.uid" ng-click="removeUser(user.username)" class="btn btn-danger">Remove</button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div ng-controller="user-settings" id="user-settings-modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Settings</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Previous password:</label>
+                                <input ng-model="prevPassword" type="password" class="form-control">
+                                <label>New password</label>
+                                <input ng-model="newPassword" type="password" class="form-control">
+                                <label>Confirm password</label>
+                                <input ng-model="newPasswordConfirm" type="password" class="form-control">
+                                <br>
+                                <input ng-disabled="newPassword != newPasswordConfirm" ng-click="changePassword()" value="Change password" type="button" class="form-control" data-dismiss="modal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
 
         <!--New user modal-->

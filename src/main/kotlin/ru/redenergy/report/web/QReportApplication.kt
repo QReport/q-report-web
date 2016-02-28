@@ -76,6 +76,8 @@ class QReportApplication(val config: IAppConfig) {
         Spark.post("/admin/reports/:id/addMessage", AddMessageRoute(this), JsonTransformer())
         Spark.post("/admin/reports/:id/updateStatus", UpdateStatusRoute(this), JsonTransformer())
 
+        Spark.post("/admin/users/update", UpdatePasswordRoute(this), JsonTransformer())
+
         Spark.delete("/admin/users/:user", DeleteUserRoute(this), JsonTransformer())
 
         Spark.exception(NotAuthorizedException::class.java, {e, req, res ->
