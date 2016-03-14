@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTableConfig
 import com.j256.ormlite.table.TableUtils
 import org.apache.commons.codec.digest.DigestUtils
 import ru.redenergy.report.common.entity.Ticket
-import ru.redenergy.report.web.config.IAppConfig
+import ru.redenergy.report.web.config.AppConfig
 import ru.redenergy.report.web.entities.AccessLevel
 import ru.redenergy.report.web.entities.User
 import ru.redenergy.report.web.exception.NotAuthorizedException
@@ -20,7 +20,7 @@ import ru.redenergy.report.web.routes.*
 import spark.Spark
 import java.util.*
 
-class QReportApplication(val config: IAppConfig) {
+class QReportApplication(val config: AppConfig) {
 
     init{
         DataPersisterManager.registerDataPersisters(JsonPersister.getSingleton())
