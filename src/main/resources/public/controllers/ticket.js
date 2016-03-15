@@ -15,7 +15,6 @@ angular.module('qreport')
             if(response.data.ok){
                 $scope.ticket = response.data.value
                 $scope.selectedStatus = response.data.value.status
-                console.log(response)
             } else {
                 $scope.error = true
             }
@@ -54,8 +53,6 @@ angular.module('qreport')
                 $scope.loadTicketData()
                 $scope.newMessage = ''
             }
-        }, function errorCallback(response){
-            console.log(response)
         })
     }
 
