@@ -9,6 +9,11 @@ angular.module('qreport')
     $scope.ticketsPerPage = 5
     $scope.currentPage = 1
     $scope.tickets = []
+    $scope.searchQuery = ''
+
+    $scope.search = function(){
+
+    }
 
     $scope.formatTimestampRelative = function(millis){
         return moment(millis).fromNow()

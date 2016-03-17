@@ -1,6 +1,16 @@
 <div class="container" ng-controller="dashboard" ng-init="loadTickets()">
     <div ng-include="'templates/navigation.html'"></div>
-    <h2>Tickets</h2>
+    <h3>Tickets</h3>
+    <br>
+    <div class="input-group">
+        <input nh-model="searchQuery" type="text" class="form-control input" placeholder="Search..." />
+        <span class="input-group-btn">
+            <button ng-click="search()" class="btn btn-default" type="button">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </span>
+    </div>
+    <br>
     <div class="table-responsive">
         <table class="table">
             <thead>
